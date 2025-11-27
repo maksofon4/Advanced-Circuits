@@ -141,7 +141,7 @@ const Board: React.FC = () => {
       >
         <Thermometer onTemperatureChange={(value) => setTemperature(value)} />
         <ButtonsBox>
-          <SaveSchemaButton />
+          <SaveSchemaButton onClick={() => console.log("11")} />
         </ButtonsBox>
         <Background variant={BackgroundVariant.Lines} />
       </ReactFlow>

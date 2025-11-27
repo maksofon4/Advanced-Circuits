@@ -1,42 +1,51 @@
 // pages/api/schemas/index.ts
 import { NextApiRequest, NextApiResponse } from "next";
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const reqCookies = await cookies();
-  const session = reqCookies.get("session");
+export async function POST(req: NextRequest) {
+  try {
+    const cookieStore = await cookies();
+    const sessionToken = cookieStore.get("authjs.session-token")?.value;
 
-  if (!session) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
+    if (!sessionToken) {
+      throw new Error("Unauthorized");
+    }
 
-  if (req.method === "GET") {
-    // Get user's schemas
-    const schemas = await prisma.schema.findMany({
-      where: { userId: session.user.id },
-      orderBy: { updatedAt: "desc" },
-    });
-    return res.json(schemas);
-  }
+    const body = await req.json(); // parse JSON body
+    const { schema } = body;
 
-  if (req.method === "POST") {
-    // Save new schema
-    const { name, schema } = req.body;
-
-    const savedSchema = await prisma.schema.create({
-      data: {
-        name,
-        schema: JSON.parse(JSON.stringify(schema)), // Ensure serialization
-        userId: session.user.id,
-      },
+    // save to DB
+    const newSchema = await prisma.schema.create({
+      data: { userId, schema },
     });
 
-    return res.json(savedSchema);
+    return NextResponse.json({ success: true }, { status: 201 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { success: false, error: "Failed to create user" },
+      { status: 500 }
+    );
   }
+}
 
-  res.setHeader("Allow", ["GET", "POST"]);
-  res.status(405).end(`Method ${req.method} Not Allowed`);
+export async function GET(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { name, email } = body;
+
+    // save to DB
+    const user = await prisma.user.create({
+      data: { name, email },
+    });
+
+    return NextResponse.json({ success: true, user }, { status: 201 });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { success: false, error: "Failed to create user" },
+      { status: 500 }
+    );
+  }
 }

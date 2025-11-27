@@ -4,11 +4,16 @@ import React from "react";
 import ToolTip from "../ToolTip/ToolTip";
 import { ToolTipPositions } from "../ToolTip/ToolTip";
 
-const SaveSchemaButton: React.FC = () => {
+interface SaveSchemaButtonProps {
+  onClick: () => void;
+}
+
+const SaveSchemaButton: React.FC<SaveSchemaButtonProps> = ({ onClick }) => {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <button
       className="button_normal button_normal_blue relative"
+      onClick={onClick}
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >

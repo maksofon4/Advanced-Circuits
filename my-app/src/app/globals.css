@@ -50,6 +50,64 @@
   @apply flex gap-3 items-center col-span-1 justify-center;
 }
 
+/* Auth Thirdparties */
+
+.auth_thirdparties_button {
+  @apply w-full p-2 shadow-lg rounded-sm;
+}
+
+/* Login Form */
+
+.login_form_container {
+  @apply flex flex-col items-center gap-3 rounded-lg;
+}
+.login_form {
+  @apply w-[350px] bg-zinc-100 rounded-lg border-1 shadow-lg py-[50px] px-[35px] flex flex-col gap-3;
+}
+.login_form * {
+  @apply text-zinc-900;
+}
+.login_form h3 {
+  @apply text-[32px] font-medium leading-[42px] text-center;
+}
+
+.login_form label {
+  @apply block mt-[5px] text-[16px] font-medium;
+}
+.login_form input {
+  @apply block text-zinc-950 h-[50px] w-full bg-zinc-300 rounded-sm py-[0px] px-[10px]  text-[14px] font-light;
+}
+::placeholder {
+  @apply text-zinc-950;
+}
+.login_form button {
+  @apply w-full bg-zinc-900 text-zinc-50  px-[0px] mt-[10px]  font-semibold rounded-sm cursor-pointer;
+}
+
+.login_form .button_login {
+  @apply text-[20px] py-[15px];
+}
+
+.login_form .social {
+  @apply flex justify-between gap-3;
+}
+
+.login_form .social button {
+  @apply text-[15px] flex justify-center items-center gap-1 leading-[16px] py-[10px];
+}
+
+.login_form svg {
+  @apply fill-zinc-50;
+}
+
+.login_form button:hover {
+  @apply bg-zinc-500 cursor-pointer text-zinc-100;
+}
+
+.login_form .sign_up_link {
+  @apply text-rose-600 cursor-pointer;
+}
+
 /* component list */
 
 .components_list {

@@ -40,20 +40,13 @@ const Header: React.FC = async () => {
               </>
             ) : (
               <>
-                <form
-                  action={async () => {
-                    "use server";
-                    await signIn("google");
-                  }}
+                <Link href="/login" className="button_normal bg-slate-100 ">
+                  Sign In
+                </Link>
+                <Link
+                  href="/login"
+                  className="button_normal bg-blue-500 text-white"
                 >
-                  <button
-                    type="submit"
-                    className="button_normal bg-slate-100 w-full"
-                  >
-                    Sign In
-                  </button>
-                </form>
-                <Link href="" className="button_normal bg-blue-500 text-white">
                   Sign Up
                 </Link>
               </>
